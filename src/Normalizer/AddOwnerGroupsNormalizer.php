@@ -23,7 +23,7 @@ class AddOwnerGroupsNormalizer implements NormalizerInterface, SerializerAwareIn
         }
 
 
-        return $normalized;
+        return $this->normalizer->normalize($object, $format, $context);
     }
 
     public function supportsNormalization(mixed $data, string $format = null, array $context = []): bool
