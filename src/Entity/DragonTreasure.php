@@ -137,6 +137,8 @@ class DragonTreasure
     #[ApiFilter(SearchFilter::class, strategy: 'exact')]
     private ?User $owner = null;
 
+    #[Groups(['treasure:read'])]
+    #[SerializedName("isMine")]
     private bool $isOwnedByAuthenticatedUser;
 
     public function __construct(string $name = null)
