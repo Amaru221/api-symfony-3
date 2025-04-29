@@ -26,6 +26,7 @@ class DragonTreasureStateProvider implements ProviderInterface
 
         $treasure->setIsOwnedByAuthenticatedUser(true);
         // Retrieve the state from somewhere
-        dd($operation);
+        return $treasure;
+        //dd($operation);
     }
 }
