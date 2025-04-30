@@ -12,8 +12,8 @@ class DailyQuestStateProvider implements ProviderInterface
     {
         // Retrieve the state from somewhere
         return [
-            new DailyQuest(),
-            new DailyQuest(),
+            new DailyQuest(4),
+            new DailyQuest(5),
         ];
     }
 }
