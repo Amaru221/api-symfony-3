@@ -2,16 +2,18 @@
 
 namespace App\State;
 
+use ApiPlatform\Doctrine\Common\State\PersistProcessor;
 use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\ProcessorInterface;
 use App\Entity\DragonTreasure;
 use App\Entity\Notification;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\SecurityBundle\Security;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 
 class DragonTreasureStateProcessor implements ProcessorInterface
 {
-    public function __construct(private ProcessorInterface $innerProcessor, private Security $security, private EntityManagerInterface $entityManager)
+    public function __construct(#[Autowire(service: PersistProcessor::class)] private ProcessorInterface $innerProcessor, private Security $security, private EntityManagerInterface $entityManager)
     {
     }
 
