@@ -18,15 +18,11 @@ class DragonTreasureStateProcessor implements ProcessorInterface
 
         assert($data instanceof DragonTreasure);
 
-        if ($data instanceof DragonTreasure && $data->getOwner() === null && $this->security->getUser()) {
-            $data->setOwner($this->security->getUser());
-        }
+        $data->setOwner($this->security->getUser());
 
         $this->innerProcessor->process($data, $operation, $uriVariables, $context);
 
-        if($data instanceOf DragonTreasure){
-            $data->setIsOwnedByAuthenticatedUser($data->getOwner() === $this->security->getUser());
-        }
+        $data->setIsOwnedByAuthenticatedUser($data->getOwner() === $this->security->getUser());
 
         return $data;
     }
