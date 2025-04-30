@@ -5,11 +5,12 @@ namespace App\State;
 use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\ProcessorInterface;
 use App\Entity\DragonTreasure;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\SecurityBundle\Security;
 
 class DragonTreasureStateProcessor implements ProcessorInterface
 {
-    public function __construct(private ProcessorInterface $innerProcessor, private Security $security)
+    public function __construct(private ProcessorInterface $innerProcessor, private Security $security, private EntityManagerInterface $entityMnager)
     {
     }
 
