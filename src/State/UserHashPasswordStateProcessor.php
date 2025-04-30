@@ -13,7 +13,11 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 #[AsDecorator('api_platform.doctrine.orm.state.persist_processor')]
 class UserHashPasswordStateProcessor implements ProcessorInterface
 {
-    public function __construct(#[Autowire(service: PersistProcessor::class)] private ProcessorInterface $innerProcessor, private UserPasswordHasherInterface $userPasswordHasher)
+    public function __construct(
+        #[Autowire(service: PersistProcessor::class)]
+        private ProcessorInterface $innerProcessor,
+        private UserPasswordHasherInterface $userPasswordHasher
+    )
     {
     }
 

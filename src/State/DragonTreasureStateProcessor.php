@@ -13,7 +13,12 @@ use Symfony\Component\DependencyInjection\Attribute\Autowire;
 
 class DragonTreasureStateProcessor implements ProcessorInterface
 {
-    public function __construct(#[Autowire(service: PersistProcessor::class)] private ProcessorInterface $innerProcessor, private Security $security, private EntityManagerInterface $entityManager)
+    public function __construct(
+        #[Autowire(service: PersistProcessor::class)]
+        private ProcessorInterface $innerProcessor,
+        private Security $security,
+        private EntityManagerInterface $entityManager
+    )
     {
     }
 
