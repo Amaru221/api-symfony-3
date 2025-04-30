@@ -8,7 +8,6 @@ use App\Entity\DragonTreasure;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\DependencyInjection\Attribute\AsDecorator;
 
-#[AsDecorator('api_platform.doctrine.orm.state.persist_processor')]
 class DragonTreasureStateProcessor implements ProcessorInterface
 {
     public function __construct(private ProcessorInterface $innerProcessor, private Security $security)
