@@ -5,12 +5,13 @@ namespace App\State;
 use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\ProcessorInterface;
 use App\Entity\DragonTreasure;
+use App\Entity\Notification;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\SecurityBundle\Security;
 
 class DragonTreasureStateProcessor implements ProcessorInterface
 {
-    public function __construct(private ProcessorInterface $innerProcessor, private Security $security, private EntityManagerInterface $entityMnager)
+    public function __construct(private ProcessorInterface $innerProcessor, private Security $security, private EntityManagerInterface $entityManager)
     {
     }
 
@@ -28,7 +29,11 @@ class DragonTreasureStateProcessor implements ProcessorInterface
         $previousData = $context['previous_data'] ?? null;
 
         if($previousData instanceof DragonTreasure && $data->getIsPublished() && $previousData->getIsPublished() !== $data->getIsPublished()){
-            dd('isPublished!');
+            $notification = new Notification();
+            $notification->setDragonTreasure($data);
+            $notification->setMessage('Treasure has been published!');
+            $this->entityManager->persist($notification);
+            $this->entityManager->flush();
         }
 
         return $data;
