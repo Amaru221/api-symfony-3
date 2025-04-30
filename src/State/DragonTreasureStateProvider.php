@@ -2,7 +2,7 @@
 
 namespace App\State;
 
-use ApiPlatform\Doctrine\Odm\State\CollectionProvider;
+use ApiPlatform\Doctrine\Orm\State\CollectionProvider;
 use App\Entity\DragonTreasure;
 use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\ProviderInterface;
