@@ -24,6 +24,12 @@ class DragonTreasureStateProcessor implements ProcessorInterface
 
         $data->setIsOwnedByAuthenticatedUser($data->getOwner() === $this->security->getUser());
 
+        $previousData = $context['previous_data'] ?? null;
+
+        if($previousData instanceof DragonTreasure && $data->getIsPublished() && $previousData->getIsPublished() !== $data->getIsPublished()){
+            dd('isPublished!');
+        }
+
         return $data;
     }
 }
