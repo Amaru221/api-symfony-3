@@ -14,7 +14,7 @@ use Symfony\Component\DependencyInjection\Attribute\Autowire;
 class DragonTreasureStateProvider implements ProviderInterface
 {
 
-    public function __construct(private Security $security, #[Autowire(service: ItemProvider::class)] private ProviderInterface $itemProvider, #[Autowire(serice: CollectionProvider::class)] private ProviderInterface $collectionProvider)
+    public function __construct(private Security $security, #[Autowire(service: ItemProvider::class)] private ProviderInterface $itemProvider, #[Autowire(service: CollectionProvider::class)] private ProviderInterface $collectionProvider)
     {
         
     }
