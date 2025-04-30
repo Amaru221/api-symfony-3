@@ -14,7 +14,6 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 class UserHashPasswordStateProcessor implements ProcessorInterface
 {
     public function __construct(
-        #[Autowire(service: PersistProcessor::class)]
         private ProcessorInterface $innerProcessor,
         private UserPasswordHasherInterface $userPasswordHasher
     )
