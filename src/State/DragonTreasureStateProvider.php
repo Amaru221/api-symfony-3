@@ -2,6 +2,7 @@
 
 namespace App\State;
 
+use ApiPlatform\Doctrine\Odm\State\CollectionProvider;
 use App\Entity\DragonTreasure;
 use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\ProviderInterface;
@@ -12,7 +13,7 @@ use Symfony\Component\DependencyInjection\Attribute\Autowire;
 class DragonTreasureStateProvider implements ProviderInterface
 {
 
-    public function __construct(private Security $security, #[Autowire(service: ItemProvider::class)] private ProviderInterface $itemProvider)
+    public function __construct(private Security $security, #[Autowire(service: ItemProvider::class)] private ProviderInterface $itemProvider, #[Autowire(serice: CollectionProvider::class)] private ProviderInterface $collectionProvider)
     {
         
     }
