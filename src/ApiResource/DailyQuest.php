@@ -17,6 +17,11 @@ class DailyQuest{
     #[Ignore]
     public \DateTimeInterface $day;
 
+    public string $questName;
+    public string $description;
+    public int $difficultyLevel;
+    public DailyQuestStatusEnum $status;
+
     public function __construct(DateTimeInterface $day){
         $this->day = $day;
     }
