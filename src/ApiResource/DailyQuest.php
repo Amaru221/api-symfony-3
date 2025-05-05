@@ -4,6 +4,7 @@ namespace App\ApiResource;
 
 use ApiPlatform\Metadata\ApiResource;
 use App\State\DailyQuestStateProvider;
+use DateTimeInterface;
 
 #[ApiResource(
     shortName: 'Quest',
@@ -11,10 +12,10 @@ use App\State\DailyQuestStateProvider;
 )]
 class DailyQuest{
 
-    public int $id;
+    public \DateTimeInterface $day;
 
-    public function __construct(int $id){
-        $this->id = $id;
+    public function __construct(DateTimeInterface $day){
+        $this->day = $day;
     }
 
 }
