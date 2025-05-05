@@ -21,7 +21,7 @@ class DailyQuest{
         $this->day = $day;
     }
 
-    #[ApiProperty(identifier: true)]
+    #[ApiProperty(readable: false, identifier: true)]
     public function getDayString(): string
     {
         return $this->day->format('Y-m-d');
