@@ -7,10 +7,17 @@ use App\Enum\DailyQuestStatusEnum;
 use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\ProviderInterface;
 use ApiPlatform\Metadata\CollectionOperationInterface;
+use App\Repository\DragonTreasureRepository;
 use DateTimeImmutable;
 
 class DailyQuestStateProvider implements ProviderInterface
 {
+
+    public function __construct(private DragonTreasureRepository $treasureRepository)
+    {
+        
+    }
+
     public function provide(Operation $operation, array $uriVariables = [], array $context = []): object|array|null
     {
         // Retrieve the state from somewhere
