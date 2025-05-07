@@ -10,6 +10,8 @@ use ApiPlatform\Metadata\CollectionOperationInterface;
 use App\Repository\DragonTreasureRepository;
 use DateTimeImmutable;
 
+use function PHPSTORM_META\map;
+
 class DailyQuestStateProvider implements ProviderInterface
 {
 
@@ -31,6 +33,7 @@ class DailyQuestStateProvider implements ProviderInterface
     public function createQuests(): array
     {
         $quests = [];
+        $treasures = $this->treasureRepository->findBy([], [], 10);
         for ($i = 0; $i<50; $i++){
             $quest = new DailyQuest(new \DateTimeImmutable(sprintf('- %d days', $i)));
             $quest->questName = sprintf('Description %d', $i);
@@ -38,7 +41,9 @@ class DailyQuestStateProvider implements ProviderInterface
             $quest->difficultyLevel = $i % 10;
             $quest->status = $i % 2 === 0 ? DailyQuestStatusEnum::ACTIVE : DailyQuestStatusEnum::COMPLETED;
             $quest->lastUpdate = new DateTimeImmutable(sprintf('- %d days', rand(10,100)));
-            $quest->treasures = $this->treasureRepository->findBy([],[],10);
+            $randomTreasuresKeys = array_rand($treasures, rand(1,3));
+            $randomTreasures = map(fn($key) => $treasures[$key], (array) $randomTreasuresKeys);
+            $quest->treasures = $randomTreasures;
             $quests[$quest->getDayString()] = $quest;
         }
 
