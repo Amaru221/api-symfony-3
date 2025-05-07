@@ -33,6 +33,11 @@ class DailyQuest{
     public int $difficultyLevel;
     public DailyQuestStatusEnum $status;
     public \DateTimeImmutable $lastUpdate;
+    /**
+     * Undocumented variable
+     *
+     * @var DragonTreasure[]
+     */
     public array $treasures = [];
 
     public function __construct(DateTimeInterface $day){
