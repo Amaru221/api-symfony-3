@@ -7,6 +7,7 @@ use App\Enum\DailyQuestStatusEnum;
 use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\ProviderInterface;
 use ApiPlatform\Metadata\CollectionOperationInterface;
+use DateTimeImmutable;
 
 class DailyQuestStateProvider implements ProviderInterface
 {
@@ -29,6 +30,7 @@ class DailyQuestStateProvider implements ProviderInterface
             $quest->description = sprintf('Description %d', $i);
             $quest->difficultyLevel = $i % 10;
             $quest->status = $i % 2 === 0 ? DailyQuestStatusEnum::ACTIVE : DailyQuestStatusEnum::COMPLETED;
+            $quest->lastUpdate = new DateTimeImmutable(sprintf('- %d days', rand(10,100)));
             $quests[$quest->getDayString()] = $quest;
         }
 
