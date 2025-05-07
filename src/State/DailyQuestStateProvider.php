@@ -10,7 +10,6 @@ use ApiPlatform\Metadata\CollectionOperationInterface;
 use App\Repository\DragonTreasureRepository;
 use DateTimeImmutable;
 
-use function PHPSTORM_META\map;
 
 class DailyQuestStateProvider implements ProviderInterface
 {
