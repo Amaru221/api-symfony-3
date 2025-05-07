@@ -19,9 +19,9 @@ use Symfony\Component\Serializer\Annotation\Ignore;
     operations: [
         new GetCollection(),
         new Get(),
-        new Patch(),
+        new Patch(processor: DailyQuestStateProcessor::class),
     ],
-    processor: DailyQuestStateProcessor::class
+    //processor: DailyQuestStateProcessor::class
 )]
 class DailyQuest{
 
