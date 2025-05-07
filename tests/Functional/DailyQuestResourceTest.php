@@ -15,6 +15,18 @@ class DailyQuestResourceTest extends ApiTestCase {
 
         $yesterday = new DateTime('-1 day');
 
+        $this->browser()
+            ->patch('/api/quests/'.$yesterday->format('Y-m-d'),
+                [
+                    'json' => [
+                        'status' => 'completed'
+                    ]
+                ]
+            )
+            ->assertStatus(200)
+            ->dump()
+            ->assertJsonMatches('status', 'completed')
+        ;
     }
 
 
