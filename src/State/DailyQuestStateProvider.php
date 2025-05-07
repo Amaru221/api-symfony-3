@@ -42,7 +42,7 @@ class DailyQuestStateProvider implements ProviderInterface
             $quest->status = $i % 2 === 0 ? DailyQuestStatusEnum::ACTIVE : DailyQuestStatusEnum::COMPLETED;
             $quest->lastUpdate = new DateTimeImmutable(sprintf('- %d days', rand(10,100)));
             $randomTreasuresKeys = array_rand($treasures, rand(1,3));
-            $randomTreasures = map(fn($key) => $treasures[$key], (array) $randomTreasuresKeys);
+            $randomTreasures = array_map(fn($key) => $treasures[$key], (array) $randomTreasuresKeys);
             $quest->treasures = $randomTreasures;
             $quests[$quest->getDayString()] = $quest;
         }
