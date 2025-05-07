@@ -32,6 +32,7 @@ class DailyQuest{
     public string $description;
     public int $difficultyLevel;
     public DailyQuestStatusEnum $status;
+    public \DateTimeImmutable $lastUpdate;
 
     public function __construct(DateTimeInterface $day){
         $this->day = $day;
