@@ -18,6 +18,7 @@ class DailyQuestResourceTest extends ApiTestCase {
         $this->browser()
             ->patch('/api/quests/'.$yesterday->format('Y-m-d'),
                 [
+                    'headers' => ['Content-Type' => 'application/merge-patch+json'],
                     'json' => [
                         'status' => 'completed'
                     ]
