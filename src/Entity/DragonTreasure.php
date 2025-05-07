@@ -141,7 +141,7 @@ class DragonTreasure
     private ?User $owner = null;
 
 
-    private bool $isOwnedByAuthenticatedUser;
+    private bool $isOwnedByAuthenticatedUser = false;
 
     public function __construct(string $name = null)
     {
