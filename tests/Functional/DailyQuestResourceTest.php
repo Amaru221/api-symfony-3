@@ -2,6 +2,7 @@
 
 namespace App\Tests\Functional;
 
+use App\Factory\DragonTreasureFactory;
 use DateTime;
 use Zenstruck\Foundry\Test\Factories;
 use Zenstruck\Foundry\Test\ResetDatabase;
@@ -13,6 +14,7 @@ class DailyQuestResourceTest extends ApiTestCase {
 
     public function testPatchCanUpdateStatus(){
 
+        DragonTreasureFactory::createMany(5);
         $day = new DateTime('-2 day');
 
         $this->browser()
