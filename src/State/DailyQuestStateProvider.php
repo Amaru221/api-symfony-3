@@ -16,7 +16,7 @@ class DailyQuestStateProvider implements ProviderInterface
         if($operation instanceof CollectionOperationInterface){
                 return $this->createQuests();
         }
-        $quest = $this->createQuests();
+        $quests = $this->createQuests();
         return $quests[$uriVariables['dayString']] ?? null;
     }
 
