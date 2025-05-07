@@ -10,6 +10,7 @@ use ApiPlatform\Metadata\ApiProperty;
 use ApiPlatform\Metadata\ApiResource;
 use App\State\DailyQuestStateProvider;
 use ApiPlatform\Metadata\GetCollection;
+use App\State\DailyQuestStateProcessor;
 use Symfony\Component\Serializer\Annotation\Ignore;
 
 #[ApiResource(
@@ -19,7 +20,8 @@ use Symfony\Component\Serializer\Annotation\Ignore;
         new GetCollection(),
         new Get(),
         new Patch(),
-    ]
+    ],
+    processor: DailyQuestStateProcessor::class
 )]
 class DailyQuest{
 
