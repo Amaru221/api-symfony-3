@@ -30,7 +30,7 @@ class DailyQuestStateProvider implements ProviderInterface
             $offset = $this->pagination->getOffset($operation, $context);
             $totalItems = $this->countTotalQuests();
 
-            $quests = $this->createQuests();
+            $quests = $this->createQuests($offset, $itemsPerPage);
 
             return new TraversablePaginator(
                 new \ArrayIterator($quests),
@@ -39,14 +39,15 @@ class DailyQuestStateProvider implements ProviderInterface
                 $totalItems,
             );
         }
-        $quests = $this->createQuests();
+        $quests = $this->createQuests(0, $this->countTotalQuests());
         return $quests[$uriVariables['dayString']] ?? null;
     }
-    private function createQuests(): array
+    private function createQuests(int $offset, int $limit = 50): array
     {
         $treasures = $this->treasureRepository->findBy([], [], 10);
+        $totalQuests = $this->countTotalQuests();
         $quests = [];
-        for ($i = 0; $i < 50; $i++) {
+        for ($i = $offset; $i < ($offset + $limit) && $i<$totalQuests; $i++) {
             $quest = new DailyQuest(new \DateTimeImmutable(sprintf('- %d days', $i)));
             $quest->questName = sprintf('Quest %d', $i);
             $quest->description = sprintf('Description %d', $i);
