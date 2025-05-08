@@ -30,9 +30,9 @@ class DailyQuestStateProvider implements ProviderInterface
 
             return new TraversablePaginator(
                 new \ArrayIterator($quests),
-                1,
-                10,
-                count($quests),
+                $currentPage,
+                $itemsPerPage,
+                $totalItems,
             );
         }
         $quests = $this->createQuests();
