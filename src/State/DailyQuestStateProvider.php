@@ -22,6 +22,10 @@ class DailyQuestStateProvider implements ProviderInterface
     public function provide(Operation $operation, array $uriVariables = [], array $context = []): object|array|null
     {
         if ($operation instanceof CollectionOperationInterface) {
+            $currentPage = 1;
+            $itemsPerPage = 10;
+            $totalItems = $this->countTotalQuests();
+
             $quests = $this->createQuests();
 
             return new TraversablePaginator(
@@ -57,5 +61,9 @@ class DailyQuestStateProvider implements ProviderInterface
             $quests[$quest->getDayString()] = $quest;
         }
         return $quests;
+    }
+
+    public function countTotalQuests(): int{
+        return 50;
     }
 }
