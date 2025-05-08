@@ -37,19 +37,15 @@ class DailyQuestStateProvider implements ProviderInterface
             $quest->difficultyLevel = $i % 10;
             $quest->status = $i % 2 === 0 ? DailyQuestStatusEnum::ACTIVE : DailyQuestStatusEnum::COMPLETED;
             $quest->lastUpdate = new \DateTimeImmutable(sprintf('- %d days', rand(10, 100)));
-            $randomTreasuresKeys = array_rand($treasures, rand(1, 3));
-            $randomTreasures = array_map(fn($key) => $treasures[$key], (array) $randomTreasuresKeys);
-            $questTreasures = [];
+            $randomTreasure = $treasures[array_rand($treasures)];
 
-            foreach($randomTreasures as $treasure){
-                $questTreasures[] = new QuestTreasure(
-                    $treasure->getName(),
-                    $treasure->getValue(),
-                    $treasure->getCoolFactor(),
+                $questTreasure = new QuestTreasure(
+                    $randomTreasure->getName(),
+                    $randomTreasure->getValue(),
+                    $randomTreasure->getCoolFactor(),
                 );
-            }
 
-            $quest->treasures = $questTreasures;
+            $quest->treasure = $questTreasure;
             $quests[$quest->getDayString()] = $quest;
         }
         return $quests;
