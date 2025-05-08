@@ -34,7 +34,7 @@ class DailyQuest{
     public DailyQuestStatusEnum $status;
     public \DateTimeImmutable $lastUpdate;
     /**
-     * @var DragonTreasure[]
+     * @var QuestTreasure[]
      */
     public array $treasures = [];
 
