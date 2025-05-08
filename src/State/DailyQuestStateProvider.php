@@ -4,6 +4,7 @@ namespace App\State;
 
 use ApiPlatform\Metadata\CollectionOperationInterface;
 use ApiPlatform\Metadata\Operation;
+use ApiPlatform\State\Pagination\Pagination;
 use ApiPlatform\State\Pagination\TraversablePaginator;
 use ApiPlatform\State\ProviderInterface;
 use App\ApiResource\DailyQuest;
@@ -16,14 +17,17 @@ class DailyQuestStateProvider implements ProviderInterface
 {
     public function __construct(
         private DragonTreasureRepository $treasureRepository,
+        private Pagination $pagination,
     )
     {
     }
+
     public function provide(Operation $operation, array $uriVariables = [], array $context = []): object|array|null
     {
         if ($operation instanceof CollectionOperationInterface) {
-            $currentPage = 1;
-            $itemsPerPage = 10;
+            $currentPage = $this->pagination->getPage($context);
+            $itemsPerPage = $this->pagination->getLimit($operation, $context);
+            $offset = $this->pagination->getOffset($operation, $context);
             $totalItems = $this->countTotalQuests();
 
             $quests = $this->createQuests();
