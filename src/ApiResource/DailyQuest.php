@@ -34,7 +34,7 @@ class DailyQuest{
     public DailyQuestStatusEnum $status;
     public \DateTimeImmutable $lastUpdate;
     #[ApiProperty(genId: false)]
-    public QuestTreasure $treasures;
+    public QuestTreasure $treasure;
 
     public function __construct(DateTimeInterface $day){
         $this->day = $day;
