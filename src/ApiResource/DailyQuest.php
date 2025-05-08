@@ -22,6 +22,7 @@ use Symfony\Component\Serializer\Annotation\Ignore;
         new Patch(),
     ],
     processor: DailyQuestStateProcessor::class,
+    paginationItemsPerPage: 10,
 )]
 class DailyQuest{
 
