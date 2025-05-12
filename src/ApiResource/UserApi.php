@@ -5,7 +5,6 @@ namespace App\ApiResource;
 use App\Entity\User;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Doctrine\Orm\State\Options;
-use ApiPlatform\Doctrine\Orm\State\CollectionProvider;
 
 #[ApiResource(
     shortName: 'User',
@@ -20,7 +19,6 @@ class UserApi
 
     public ?string $username = null;
 
-    public ?int $flameThrowingDistance = 0;
-
+    public array $dragonTreasures = [];
 
 }
