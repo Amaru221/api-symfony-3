@@ -20,5 +20,7 @@ class UserApi
 
     public ?string $username = null;
 
+    public ?int $flameThrowingDistance = 0;
+
 
 }
