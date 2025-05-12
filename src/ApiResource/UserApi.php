@@ -7,9 +7,11 @@ use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Doctrine\Orm\State\Options;
 use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
+use App\State\EntityToDtoStateProvider;
 
 #[ApiResource(
     shortName: 'User',
+    provider: EntityToDtoStateProvider::class,
     stateOptions: new Options(entityClass: User::class),
     paginationItemsPerPage: 5,
 )]
