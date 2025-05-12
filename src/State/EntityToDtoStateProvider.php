@@ -12,10 +12,11 @@ class EntityToDtoStateProvider implements ProviderInterface
 
     public function __construct(#[Autowire(CollectionProvider::class)] private ProviderInterface $collectionProvider)
     {
-        
+
     }
     public function provide(Operation $operation, array $uriVariables = [], array $context = []): object|array|null
     {
         // Retrieve the state from somewhere
+        $this->collectionProvider->provide($operation, $uriVariables, $context);
     }
 }
