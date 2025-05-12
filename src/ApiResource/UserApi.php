@@ -17,4 +17,7 @@ class UserApi
 
     public ?int $id = null;
 
+    public ?string $email = null;
+    
+
 }
