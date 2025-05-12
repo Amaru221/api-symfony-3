@@ -9,7 +9,6 @@ class DailyQuestStateProcessor implements ProcessorInterface {
 
     public function process(mixed $data, Operation $operation, array $uriVariables = [], array $context = [])
     {
-        dd($data);
         $data->lastUpdate = new DateTimeImmutable('now');
     }
 
