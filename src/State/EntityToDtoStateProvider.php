@@ -10,7 +10,7 @@ use Symfony\Component\DependencyInjection\Attribute\Autowire;
 class EntityToDtoStateProvider implements ProviderInterface
 {
 
-    public function __construct(#[Autowire(CollectionProvider::class)] private ProviderInterface $collectionProvider)
+    public function __construct(#[Autowire(service: CollectionProvider::class)] private ProviderInterface $collectionProvider)
     {
 
     }
