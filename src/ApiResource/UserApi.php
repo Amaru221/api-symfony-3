@@ -2,11 +2,11 @@
 
 namespace App\ApiResource;
 
-use ApiPlatform\Doctrine\Odm\Filter\SearchFilter;
 use App\Entity\User;
+use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Doctrine\Orm\State\Options;
-use ApiPlatform\Metadata\ApiFilter;
+use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 
 #[ApiResource(
     shortName: 'User',
