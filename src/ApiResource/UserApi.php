@@ -9,7 +9,6 @@ use ApiPlatform\Doctrine\Orm\State\CollectionProvider;
 
 #[ApiResource(
     shortName: 'User',
-    provider: CollectionProvider::class,
     stateOptions: new Options(entityClass: User::class),
 )]
 class UserApi
