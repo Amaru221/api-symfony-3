@@ -9,6 +9,7 @@ use ApiPlatform\Doctrine\Orm\State\Options;
 #[ApiResource(
     shortName: 'User',
     stateOptions: new Options(entityClass: User::class),
+    paginationItemsPerPage: 5,
 )]
 class UserApi
 {
