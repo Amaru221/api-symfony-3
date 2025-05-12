@@ -19,6 +19,9 @@ class UserApi
 
     public ?string $username = null;
 
+    /**
+     * @var array<int, DragonTreasure>
+     */
     public array $dragonTreasures = [];
 
 }
