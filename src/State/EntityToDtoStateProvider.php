@@ -23,6 +23,8 @@ class EntityToDtoStateProvider implements ProviderInterface
         foreach($entities as $entity){
             $dtos [] = $this->mapEntityToDto($entity);
         }
+
+        return $dtos;
     }
 
     private function mapEntityToDto(object $entity): object
