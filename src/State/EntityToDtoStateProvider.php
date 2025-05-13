@@ -6,6 +6,7 @@ use App\ApiResource\UserApi;
 use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\ProviderInterface;
 use ApiPlatform\Doctrine\Orm\State\CollectionProvider;
+use ApiPlatform\State\Pagination\TraversablePaginator;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 
 class EntityToDtoStateProvider implements ProviderInterface
@@ -24,7 +25,13 @@ class EntityToDtoStateProvider implements ProviderInterface
             $dtos [] = $this->mapEntityToDto($entity);
         }
 
-        return $dtos;
+        return new TraversablePaginator(
+            new \ArrayIterator($dtos),
+            $entities->getCurrentPage(),
+            $entities->getItemsPerPage(),
+            $entities->getTotalItems(),
+        );
+
     }
 
     private function mapEntityToDto(object $entity): object
