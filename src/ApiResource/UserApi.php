@@ -3,11 +3,12 @@
 namespace App\ApiResource;
 
 use App\Entity\User;
+use App\Entity\DragonTreasure;
 use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiResource;
+use App\State\EntityToDtoStateProvider;
 use ApiPlatform\Doctrine\Orm\State\Options;
 use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
-use App\State\EntityToDtoStateProvider;
 
 #[ApiResource(
     shortName: 'User',
