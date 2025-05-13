@@ -2,9 +2,10 @@
 
 namespace App\State;
 
-use ApiPlatform\Doctrine\Orm\State\CollectionProvider;
+use App\ApiResource\UserApi;
 use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\ProviderInterface;
+use ApiPlatform\Doctrine\Orm\State\CollectionProvider;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 
 class EntityToDtoStateProvider implements ProviderInterface
@@ -18,6 +19,22 @@ class EntityToDtoStateProvider implements ProviderInterface
     {
         // Retrieve the state from somewhere
         $entities = $this->collectionProvider->provide($operation, $uriVariables, $context);
-        dd(iterator_to_array($entities));
+        $dtos = [];
+        foreach($entities as $entity){
+            $dtos [] = $this->mapEntityToDto($entity);
+        }
     }
+
+    private function mapEntityToDto(object $entity): object
+    {
+        $dto = new UserApi();
+        $dto->id = $entity->getId();
+        $dto->email = $entity->getEmail();
+        $dto->username = $entity->getUsername();
+        $dto->dragonTreasures = $entity->getDragonTreasures()->toArray();
+
+        return $dto;
+    }
+
+
 }
