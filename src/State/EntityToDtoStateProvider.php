@@ -49,7 +49,8 @@ class EntityToDtoStateProvider implements ProviderInterface
             return null;
         }
 
-        dd($uriVariables);
+        return $this->mapEntityToDto($entity);
+
     }
 
     private function mapEntityToDto(object $entity): object
