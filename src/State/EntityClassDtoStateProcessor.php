@@ -25,12 +25,13 @@ class EntityClassDtoStateProcessor implements ProcessorInterface
 
     public function process(mixed $data, Operation $operation, array $uriVariables = [], array $context = [])
     {
+        assert($data instanceof UserApi);
+        $entity = $this->mapDtoToEntity($data);
 
         if($operation instanceof DeleteOperationInterface){
             $this->removeProcessor->process($data, $operation, $uriVariables, $context);
         }
-        assert($data instanceof UserApi);
-        $entity = $this->mapDtoToEntity($data);
+
         $this->persistProcessor->process($entity, $operation, $uriVariables, $context);
 
         $data->id = $entity->getId();
