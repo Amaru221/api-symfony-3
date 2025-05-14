@@ -25,7 +25,7 @@ use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 class UserApi
 {
 
-    #[ApiProperty(readable: false)]
+    #[ApiProperty(readable: false, identifier: true)]
     public ?int $id = null;
 
     public ?string $email = null;
