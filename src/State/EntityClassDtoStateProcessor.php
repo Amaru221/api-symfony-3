@@ -14,6 +14,7 @@ class EntityClassDtoStateProcessor implements ProcessorInterface
     public function __construct(private UserRepository $userRepository){
 
     }
+
     public function process(mixed $data, Operation $operation, array $uriVariables = [], array $context = []): void
     {
         // Handle the state
@@ -29,10 +30,18 @@ class EntityClassDtoStateProcessor implements ProcessorInterface
         {
             $entity = $this->userRepository->find($userApi->id);
             if(!$entity){
-                $entity = new User();
+                throw new \Exception(sprintf('Entity %d not found', $userApi->id));
                 
             }
+        }else{
+            $entity = new User();
         }
 
+        $entity->setEmail($userApi->email);
+        $entity->setUsername($userApi->username);
+        $entity->setPassword('TODO properly');
+        // TODO: handle drangon Treasures 
+
+        return $entity;
     }
 }
