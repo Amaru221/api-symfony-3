@@ -7,14 +7,20 @@ use ApiPlatform\Metadata\Operation;
 use ApiPlatform\Doctrine\Orm\Paginator;
 use ApiPlatform\State\ProviderInterface;
 use ApiPlatform\Doctrine\Orm\State\CollectionProvider;
+use ApiPlatform\Doctrine\Orm\State\ItemProvider;
 use ApiPlatform\Metadata\CollectionOperationInterface;
 use ApiPlatform\State\Pagination\TraversablePaginator;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 
+use function Symfony\Component\DependencyInjection\Loader\Configurator\service;
+
 class EntityToDtoStateProvider implements ProviderInterface
 {
 
-    public function __construct(#[Autowire(service: CollectionProvider::class)] private ProviderInterface $collectionProvider)
+    public function __construct(
+        #[Autowire(service: CollectionProvider::class)] private ProviderInterface $collectionProvider, 
+        #[Autowire(service: ItemProvider::class)] private ProviderInterface $itemProvider
+    )
     {
 
     }
@@ -37,9 +43,13 @@ class EntityToDtoStateProvider implements ProviderInterface
             );
         }
 
-        dd($uriVariables);
+        $entity = $this->itemProvider->provide($operation, $uriVariables, $context);
         
+        if(!$entity){
+            return null;
+        }
 
+        dd($uriVariables);
     }
 
     private function mapEntityToDto(object $entity): object
