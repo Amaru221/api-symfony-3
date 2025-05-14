@@ -30,6 +30,11 @@ class UserApi
 
     public ?string $username = null;
 
+    /**
+     * The plaintext password when baing set or changed.
+     */
+    public ?string $password = null;
+
     public ?int $flameThrowingDistance = 0;
 
     /**
