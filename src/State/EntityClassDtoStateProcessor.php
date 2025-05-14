@@ -30,6 +30,7 @@ class EntityClassDtoStateProcessor implements ProcessorInterface
 
         if($operation instanceof DeleteOperationInterface){
             $this->removeProcessor->process($data, $operation, $uriVariables, $context);
+            return null;
         }
 
         $this->persistProcessor->process($entity, $operation, $uriVariables, $context);
