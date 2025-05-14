@@ -4,8 +4,10 @@ namespace App\State;
 
 use App\ApiResource\UserApi;
 use ApiPlatform\Metadata\Operation;
+use ApiPlatform\Doctrine\Orm\Paginator;
 use ApiPlatform\State\ProviderInterface;
 use ApiPlatform\Doctrine\Orm\State\CollectionProvider;
+use ApiPlatform\Metadata\CollectionOperationInterface;
 use ApiPlatform\State\Pagination\TraversablePaginator;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 
@@ -18,19 +20,25 @@ class EntityToDtoStateProvider implements ProviderInterface
     }
     public function provide(Operation $operation, array $uriVariables = [], array $context = []): object|array|null
     {
-        // Retrieve the state from somewhere
-        $entities = $this->collectionProvider->provide($operation, $uriVariables, $context);
-        $dtos = [];
-        foreach($entities as $entity){
-            $dtos [] = $this->mapEntityToDto($entity);
+        if($operation instanceof CollectionOperationInterface){
+            $entities = $this->collectionProvider->provide($operation, $uriVariables, $context);
+            assert($entities instanceof Paginator);
+
+            $dtos = [];
+            foreach($entities as $entity){
+                $dtos [] = $this->mapEntityToDto($entity);
+            }
+
+            return new TraversablePaginator(
+                new \ArrayIterator($dtos),
+                $entities->getCurrentPage(),
+                $entities->getItemsPerPage(),
+                $entities->getTotalItems(),
+            );
         }
 
-        return new TraversablePaginator(
-            new \ArrayIterator($dtos),
-            $entities->getCurrentPage(),
-            $entities->getItemsPerPage(),
-            $entities->getTotalItems(),
-        );
+        dd($uriVariables);
+        
 
     }
 
