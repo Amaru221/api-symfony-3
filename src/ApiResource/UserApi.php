@@ -38,6 +38,7 @@ class UserApi
     #[ApiProperty(readable: false)]
     public ?string $password = null;
 
+    #[ApiProperty(readable:false, writable: false)]
     public ?int $flameThrowingDistance = 0;
 
     /**
