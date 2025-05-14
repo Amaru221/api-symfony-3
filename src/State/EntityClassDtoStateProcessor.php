@@ -3,6 +3,8 @@
 namespace App\State;
 
 use ApiPlatform\Doctrine\Common\State\PersistProcessor;
+use ApiPlatform\Doctrine\Common\State\RemoveProcessor;
+use ApiPlatform\Metadata\DeleteOperationInterface;
 use App\Entity\User;
 use App\ApiResource\UserApi;
 use App\Repository\UserRepository;
@@ -16,13 +18,17 @@ class EntityClassDtoStateProcessor implements ProcessorInterface
     public function __construct(
         private UserRepository $userRepository,
         #[Autowire(service: PersistProcessor::class)] private PersistProcessor $persistProcessor,
+        #[Autowire(service: RemoveProcessor::class)] private RemoveProcessor $removeProcessor,
     ){
 
     }
 
     public function process(mixed $data, Operation $operation, array $uriVariables = [], array $context = [])
     {
-        // Handle the state
+
+        if($operation instanceof DeleteOperationInterface){
+
+        }
         assert($data instanceof UserApi);
         $entity = $this->mapDtoToEntity($data);
         $this->persistProcessor->process($entity, $operation, $uriVariables, $context);
