@@ -50,6 +50,7 @@ class UserResourceTest extends ApiTestCase
                 ],
                 'headers' => ['Content-Type' => 'application/merge-patch+json']
             ])
+            ->dump()
             ->assertStatus(200);
     }
 
