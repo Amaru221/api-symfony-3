@@ -5,11 +5,12 @@ namespace App\ApiResource;
 use App\Entity\User;
 use App\Entity\DragonTreasure;
 use ApiPlatform\Metadata\ApiFilter;
+use ApiPlatform\Metadata\ApiProperty;
 use ApiPlatform\Metadata\ApiResource;
 use App\State\EntityToDtoStateProvider;
 use ApiPlatform\Doctrine\Orm\State\Options;
-use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 use App\State\EntityClassDtoStateProcessor;
+use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
 
 #[ApiResource(
     shortName: 'User',
@@ -33,6 +34,7 @@ class UserApi
     /**
      * The plaintext password when baing set or changed.
      */
+    #[ApiProperty(readable: false)]
     public ?string $password = null;
 
     public ?int $flameThrowingDistance = 0;
