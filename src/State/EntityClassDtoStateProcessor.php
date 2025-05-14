@@ -59,7 +59,7 @@ class EntityClassDtoStateProcessor implements ProcessorInterface
         $entity->setEmail($userApi->email);
         $entity->setUsername($userApi->username);
         if($userApi->password){
-        $entity->setPassword($this->);
+            $entity->setPassword($this->userPasswordHasher->hashPassword($entity, $userApi->password));
         }
         // TODO: handle drangon Treasures 
 
