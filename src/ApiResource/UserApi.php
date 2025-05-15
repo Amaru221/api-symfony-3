@@ -3,6 +3,7 @@
 namespace App\ApiResource;
 
 use App\Entity\User;
+use Symfony\Component\Validator\Constraints as Assert;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\Post;
 use App\Entity\DragonTreasure;
@@ -45,15 +46,19 @@ class UserApi
 
     #[ApiProperty(readable: false, writable: false, identifier: true)]
     public ?int $id = null;
-
+    
+    #[Assert\NotBlank]
+    #[Assert\Email]
     public ?string $email = null;
 
+    #[Assert\NotBlank]
     public ?string $username = null;
 
     /**
      * The plaintext password when baing set or changed.
      */
     #[ApiProperty(readable: false)]
+    #[Assert\NotBlank(groups: 'postValidation')]
     public ?string $password = null;
 
     #[Ignore]
