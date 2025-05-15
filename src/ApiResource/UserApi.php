@@ -11,6 +11,7 @@ use App\State\EntityToDtoStateProvider;
 use ApiPlatform\Doctrine\Orm\State\Options;
 use App\State\EntityClassDtoStateProcessor;
 use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
+use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 
 #[ApiResource(
     shortName: 'User',
@@ -18,6 +19,8 @@ use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
     processor: EntityClassDtoStateProcessor::class,
     stateOptions: new Options(entityClass: User::class),
     paginationItemsPerPage: 5,
+    normalizationContext: [AbstractNormalizer::IGNORED_ATTRIBUTES => ['flameThrowingDistance']],
+    denormalizationContext: [AbstractNormalizer::IGNORED_ATTRIBUTES => ['flameThrowingDistance']],
 )]
 #[ApiFilter(SearchFilter::class, properties: [
     'username'=> 'partial',
@@ -38,7 +41,6 @@ class UserApi
     #[ApiProperty(readable: false)]
     public ?string $password = null;
 
-    #[ApiProperty(readable:false, writable: false)]
     public ?int $flameThrowingDistance = 0;
 
     /**
