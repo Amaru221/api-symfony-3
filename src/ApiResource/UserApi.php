@@ -43,11 +43,13 @@ class UserApi
     public ?string $password = null;
 
     #[Ignore]
+    #[ApiProperty(writable:false)]
     public ?int $flameThrowingDistance = 0;
 
     /**
      * @var array<int, DragonTreasure>
      */
+    #[ApiProperty(writable:false)]
     public array $dragonTreasures = [];
 
 }
