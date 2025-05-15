@@ -7,6 +7,7 @@ use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\Post;
 use App\Entity\DragonTreasure;
 use ApiPlatform\Metadata\Patch;
+use ApiPlatform\Metadata\Delete;
 use ApiPlatform\Metadata\ApiFilter;
 use ApiPlatform\Metadata\ApiProperty;
 use ApiPlatform\Metadata\ApiResource;
@@ -29,7 +30,9 @@ use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
     operations: [
         new Get(),
         new GetCollection(),
-        new Post(),
+        new Post(
+            validationContext: ['Default', 'postValidation'],
+        ),
         new Patch(),
         new Delete(),
     ]
