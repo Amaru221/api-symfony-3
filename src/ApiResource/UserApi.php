@@ -11,6 +11,7 @@ use App\State\EntityToDtoStateProvider;
 use ApiPlatform\Doctrine\Orm\State\Options;
 use App\State\EntityClassDtoStateProcessor;
 use ApiPlatform\Doctrine\Orm\Filter\SearchFilter;
+use Symfony\Component\Serializer\Annotation\Ignore;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 
 #[ApiResource(
@@ -41,6 +42,7 @@ class UserApi
     #[ApiProperty(readable: false)]
     public ?string $password = null;
 
+    #[Ignore]
     public ?int $flameThrowingDistance = 0;
 
     /**
