@@ -5,13 +5,14 @@ namespace App\Mapper;
 use App\Entity\User;
 use App\ApiResource\UserApi;
 use Symfonycasts\MicroMapper\AsMapper;
+use Symfonycasts\MicroMapper\MapperInterface;
 use Symfonycasts\MicroMapper\MicroMapperInterface;
 
 #[AsMapper(from: User::class, to: UserApi::class)]
-class UserEntityToApiMapper implements MicroMapperInterface{
+class UserEntityToApiMapper implements MapperInterface{
 
 
-    public function load(object $from, object $toClass, array $context):object {
+    public function load(object $from, string $toClass, array $context):object {
         $entity = $from;
         assert($entity instanceof User);
 
@@ -32,6 +33,7 @@ class UserEntityToApiMapper implements MicroMapperInterface{
         $dto->username = $entity->getUsername();
         $dto->dragonTreasures = $entity->getPublishedDragonTreasures()->getValues();
         $dto->flameThrowingDistance = rand(1, 10);
+
         return $dto;
     }
 }
