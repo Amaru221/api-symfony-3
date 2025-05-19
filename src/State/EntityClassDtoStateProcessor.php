@@ -2,14 +2,15 @@
 
 namespace App\State;
 
-use ApiPlatform\Doctrine\Common\State\PersistProcessor;
-use ApiPlatform\Doctrine\Common\State\RemoveProcessor;
-use ApiPlatform\Metadata\DeleteOperationInterface;
 use App\Entity\User;
 use App\ApiResource\UserApi;
 use App\Repository\UserRepository;
 use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\ProcessorInterface;
+use ApiPlatform\Metadata\DeleteOperationInterface;
+use Symfonycasts\MicroMapper\MicroMapperInterface;
+use ApiPlatform\Doctrine\Common\State\RemoveProcessor;
+use ApiPlatform\Doctrine\Common\State\PersistProcessor;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
@@ -21,6 +22,7 @@ class EntityClassDtoStateProcessor implements ProcessorInterface
         #[Autowire(service: PersistProcessor::class)] private PersistProcessor $persistProcessor,
         #[Autowire(service: RemoveProcessor::class)] private RemoveProcessor $removeProcessor,
         private UserPasswordHasherInterface $userPasswordHasher,
+        private MicroMapperInterface $microMapper,
     ){
 
     }
@@ -38,7 +40,7 @@ class EntityClassDtoStateProcessor implements ProcessorInterface
         $this->persistProcessor->process($entity, $operation, $uriVariables, $context);
 
         $data->id = $entity->getId();
-        dump($data);
+        //dump($data);
 
         return $data;
     }
@@ -64,6 +66,6 @@ class EntityClassDtoStateProcessor implements ProcessorInterface
         }
         // TODO: handle drangon Treasures 
 
-        return $entity;
+        return $this->microMapper->map($userApi, User::class);
     }
 }
