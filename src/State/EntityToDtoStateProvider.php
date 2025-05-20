@@ -11,9 +11,7 @@ use ApiPlatform\Doctrine\Orm\State\ItemProvider;
 use ApiPlatform\Metadata\CollectionOperationInterface;
 use ApiPlatform\State\Pagination\TraversablePaginator;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
-use Symfonycasts\MicroMapper\MicroMapper;
-
-use function Symfony\Component\DependencyInjection\Loader\Configurator\service;
+use Symfonycasts\MicroMapper\MicroMapperInterface;
 
 class EntityToDtoStateProvider implements ProviderInterface
 {
@@ -21,13 +19,15 @@ class EntityToDtoStateProvider implements ProviderInterface
     public function __construct(
         #[Autowire(service: CollectionProvider::class)] private ProviderInterface $collectionProvider, 
         #[Autowire(service: ItemProvider::class)] private ProviderInterface $itemProvider,
-        private MicroMapper $microMapper,
+        private MicroMapperInterface $microMapper,
     )
     {
 
     }
     public function provide(Operation $operation, array $uriVariables = [], array $context = []): object|array|null
     {
+
+        dd($operation, $context);
         if($operation instanceof CollectionOperationInterface){
             $entities = $this->collectionProvider->provide($operation, $uriVariables, $context);
             assert($entities instanceof Paginator);
