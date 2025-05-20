@@ -5,7 +5,7 @@ use App\Entity\User;
 use App\ApiResource\UserApi;
 use App\Repository\UserRepository;
 use Exception;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasher;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfonycasts\MicroMapper\AsMapper;
 use Symfonycasts\MicroMapper\MapperInterface;
 
@@ -15,7 +15,7 @@ class UserApiToEntityMapper implements MapperInterface
 
     public function __construct(
         private UserRepository $userRepository,
-        private UserPasswordHasher $userPasswordHasher,
+        private UserPasswordHasherInterface $userPasswordHasher,
     )
     {
         
