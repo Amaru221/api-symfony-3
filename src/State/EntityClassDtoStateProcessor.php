@@ -4,7 +4,6 @@ namespace App\State;
 
 use App\Entity\User;
 use App\ApiResource\UserApi;
-use App\Repository\UserRepository;
 use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\ProcessorInterface;
 use ApiPlatform\Metadata\DeleteOperationInterface;
@@ -12,16 +11,13 @@ use Symfonycasts\MicroMapper\MicroMapperInterface;
 use ApiPlatform\Doctrine\Common\State\RemoveProcessor;
 use ApiPlatform\Doctrine\Common\State\PersistProcessor;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class EntityClassDtoStateProcessor implements ProcessorInterface
 {
 
     public function __construct(
-        private UserRepository $userRepository,
         #[Autowire(service: PersistProcessor::class)] private PersistProcessor $persistProcessor,
         #[Autowire(service: RemoveProcessor::class)] private RemoveProcessor $removeProcessor,
-        private UserPasswordHasherInterface $userPasswordHasher,
         private MicroMapperInterface $microMapper,
     ){
 
@@ -40,30 +36,11 @@ class EntityClassDtoStateProcessor implements ProcessorInterface
         $this->persistProcessor->process($entity, $operation, $uriVariables, $context);
 
         $data->id = $entity->getId();
-        //dump($data);
 
         return $data;
     }
 
     private function mapDtoToEntity(object $userApi){
-        assert($userApi instanceof UserApi);
-
-        if($userApi->id)
-        {
-            $entity = $this->userRepository->find($userApi->id);
-            if(!$entity){
-                throw new \Exception(sprintf('Entity %d not found', $userApi->id));
-                
-            }
-        }else{
-            $entity = new User();
-        }
-
-        $entity->setEmail($userApi->email);
-        $entity->setUsername($userApi->username);
-        if($userApi->password){
-            $entity->setPassword($this->userPasswordHasher->hashPassword($entity, $userApi->password));
-        }
         // TODO: handle drangon Treasures 
 
         return $this->microMapper->map($userApi, User::class);
