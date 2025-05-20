@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\ApiResource\UserApi;
 use ApiPlatform\Metadata\Operation;
 use ApiPlatform\State\ProcessorInterface;
+use ApiPlatform\Doctrine\Orm\State\Options;
 use ApiPlatform\Metadata\DeleteOperationInterface;
 use Symfonycasts\MicroMapper\MicroMapperInterface;
 use ApiPlatform\Doctrine\Common\State\RemoveProcessor;
@@ -25,8 +26,12 @@ class EntityClassDtoStateProcessor implements ProcessorInterface
 
     public function process(mixed $data, Operation $operation, array $uriVariables = [], array $context = [])
     {
+        $stateOptions = $operation->getStateOptions();
+        assert($stateOptions instanceof Options);
+        $entityClass = $stateOptions->getEntityClass();
+        $entity = $this->mapDtoToEntity($data, $entityClass);
+
         assert($data instanceof UserApi);
-        $entity = $this->mapDtoToEntity($data);
 
         if($operation instanceof DeleteOperationInterface){
             $this->removeProcessor->process($data, $operation, $uriVariables, $context);
@@ -40,9 +45,9 @@ class EntityClassDtoStateProcessor implements ProcessorInterface
         return $data;
     }
 
-    private function mapDtoToEntity(object $userApi){
+    private function mapDtoToEntity(object $userApi, string $entityClass){
         // TODO: handle drangon Treasures 
 
-        return $this->microMapper->map($userApi, User::class);
+        return $this->microMapper->map($userApi, $entityClass);
     }
 }
