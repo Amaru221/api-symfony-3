@@ -58,7 +58,7 @@ class UserApi
      * The plaintext password when baing set or changed.
      */
     #[ApiProperty(readable: false)]
-    #[Assert\NotBlank(groups: 'postValidation')]
+    #[Assert\NotBlank(groups: ['postValidation'])]
     public ?string $password = null;
 
     #[Ignore]
