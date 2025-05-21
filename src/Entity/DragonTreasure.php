@@ -27,68 +27,6 @@ use Symfony\Component\Serializer\Annotation\SerializedName;
 use function Symfony\Component\String\u;
 
 #[ORM\Entity(repositoryClass: DragonTreasureRepository::class)]
-#[ApiResource(
-    shortName: 'Treasure',
-    description: 'A rare and valuable treasure.',
-    operations: [
-        new Get(
-            normalizationContext: [
-                'groups' => ['treasure:read', 'treasure:item:get'],
-            ],
-        ),
-        new GetCollection(),
-        new Post(
-            security: 'is_granted("ROLE_TREASURE_CREATE")',
-            processor: DragonTreasureStateProcessor::class,
-        ),
-        new Patch(
-            security: 'is_granted("EDIT", object)',
-            processor: DragonTreasureStateProcessor::class,
-        ),
-        new Delete(
-            security: 'is_granted("ROLE_ADMIN")',
-        ),
-    ],
-    formats: [
-        'jsonld',
-        'json',
-        'html',
-        'jsonhal',
-        'csv' => 'text/csv',
-    ],
-    normalizationContext: [
-        'groups' => ['treasure:read'],
-    ],
-    denormalizationContext: [
-        'groups' => ['treasure:write'],
-    ],
-    paginationItemsPerPage: 10,
-    provider: DragonTreasureStateProvider::class,
-    extraProperties: [
-        'standard_put' => true,
-    ],
-)]
-#[ApiResource(
-    uriTemplate: '/users/{user_id}/treasures.{_format}',
-    shortName: 'Treasure',
-    operations: [new GetCollection()],
-    uriVariables: [
-        'user_id' => new Link(
-            fromProperty: 'dragonTreasures',
-            fromClass: User::class,
-        ),
-    ],
-    normalizationContext: [
-        'groups' => ['treasure:read'],
-    ],
-    extraProperties: [
-        'standard_put' => true,
-    ],
-)]
-#[ApiFilter(PropertyFilter::class)]
-#[ApiFilter(SearchFilter::class, properties: [
-    'owner.username' => 'partial',
-])]
 class DragonTreasure
 {
     #[ORM\Id]
