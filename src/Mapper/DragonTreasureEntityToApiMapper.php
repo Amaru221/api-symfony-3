@@ -12,7 +12,12 @@ class DragonTreasureEntityToApiMapper implements MapperInterface
 {
     public function load(object $from, string $toClass, array $context): object
     {
-        dd();
+        $entity = $from;
+        assert($entity instanceof DragonTreasure);
+
+        $dto = new DragonTreasureApi();
+        $dto->id = $entity->getId();
+        return $dto;
     }
 
 
