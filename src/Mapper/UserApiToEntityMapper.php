@@ -37,7 +37,6 @@ class UserApiToEntityMapper implements MapperInterface
 
     public function populate(object $from, object $to, array $context): object{
         //TODO implement populate() method
-        dd($from, $to);
 
         $dto = $from;
         assert($dto instanceof UserApi);
