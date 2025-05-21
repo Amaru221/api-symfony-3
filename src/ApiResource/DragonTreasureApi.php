@@ -25,4 +25,6 @@ class DragonTreasureApi
 
     public ?string $name = null;
 
+    public ?UserApi $owner = null;
+
 }
