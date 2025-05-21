@@ -5,6 +5,7 @@ namespace App\State;
 use App\Entity\User;
 use App\ApiResource\UserApi;
 use ApiPlatform\Metadata\Operation;
+use App\ApiResource\DragonTreasureApi;
 use ApiPlatform\State\ProcessorInterface;
 use ApiPlatform\Doctrine\Orm\State\Options;
 use ApiPlatform\Metadata\DeleteOperationInterface;
@@ -30,8 +31,6 @@ class EntityClassDtoStateProcessor implements ProcessorInterface
         assert($stateOptions instanceof Options);
         $entityClass = $stateOptions->getEntityClass();
         $entity = $this->mapDtoToEntity($data, $entityClass);
-
-        assert($data instanceof UserApi);
 
         if($operation instanceof DeleteOperationInterface){
             $this->removeProcessor->process($data, $operation, $uriVariables, $context);
