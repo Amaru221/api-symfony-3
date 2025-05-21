@@ -25,47 +25,28 @@ class DragonTreasure
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['treasure:read', 'treasure:write', 'user:read', 'user:write'])]
-    #[ApiFilter(SearchFilter::class, strategy: 'partial')]
-    #[Assert\NotBlank]
-    #[Assert\Length(min: 2, max: 50, maxMessage: 'Describe your loot in 50 chars or less')]
     private ?string $name = null;
 
     #[ORM\Column(type: Types::TEXT)]
-    #[Groups(['treasure:read'])]
-    #[ApiFilter(SearchFilter::class, strategy: 'partial')]
-    #[Assert\NotBlank]
     private ?string $description = null;
 
     /**
      * The estimated value of this treasure, in gold coins.
      */
     #[ORM\Column]
-    #[Groups(['treasure:read', 'treasure:write', 'user:read', 'user:write'])]
-    #[ApiFilter(RangeFilter::class)]
-    #[Assert\GreaterThanOrEqual(0)]
     private ?int $value = 0;
 
     #[ORM\Column]
-    #[Groups(['treasure:read', 'treasure:write'])]
-    #[Assert\GreaterThanOrEqual(0)]
-    #[Assert\LessThanOrEqual(10)]
     private ?int $coolFactor = 0;
 
     #[ORM\Column]
     private \DateTimeImmutable $plunderedAt;
 
     #[ORM\Column]
-    #[ApiFilter(BooleanFilter::class)]
-    #[Groups(['admin:read', 'admin:write', 'owner:read', 'treasure:write'])]
     private bool $isPublished = false;
 
     #[ORM\ManyToOne(inversedBy: 'dragonTreasures')]
     #[ORM\JoinColumn(nullable: false)]
-    #[Groups(['treasure:read', 'treasure:write'])]
-    #[Assert\Valid]
-    #[IsValidOwner]
-    #[ApiFilter(SearchFilter::class, strategy: 'exact')]
     private ?User $owner = null;
 
 
