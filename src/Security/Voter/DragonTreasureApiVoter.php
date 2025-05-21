@@ -2,6 +2,7 @@
 
 namespace App\Security\Voter;
 
+use App\Entity\User;
 use App\ApiResource\DragonTreasureApi;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -26,7 +27,7 @@ class DragonTreasureApiVoter extends Voter
     {
         $user = $token->getUser();
         // if the user is anonymous, do not grant access
-        if (!$user instanceof UserInterface) {
+        if (!$user instanceof User) {
             return false;
         }
 
@@ -43,7 +44,7 @@ class DragonTreasureApiVoter extends Voter
                     return false;
                 }
 
-                if ($subject->owner === $user) {
+                if ($subject->owner?->id === $user->getId()) {
                     return true;
                 }
 
