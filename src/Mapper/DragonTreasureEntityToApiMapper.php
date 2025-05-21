@@ -23,6 +23,13 @@ class DragonTreasureEntityToApiMapper implements MapperInterface
 
     public function populate(object $from, object $to, array $context): object
     {
-        dd();
+        $entity = $from;
+        $dto = $to;
+
+        assert($entity instanceof DragonTreasure);
+        assert($dto instanceof DragonTreasureApi);
+
+        $dto->name = $entity->getName();
+        return $dto;
     }
 }
