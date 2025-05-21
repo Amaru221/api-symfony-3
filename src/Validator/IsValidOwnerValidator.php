@@ -2,8 +2,8 @@
 
 namespace App\Validator;
 
-use App\ApiResource\UserApi;
 use App\Entity\User;
+use App\ApiResource\UserApi;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
@@ -29,12 +29,13 @@ class IsValidOwnerValidator extends ConstraintValidator
         if (!$user) {
             throw new \LogicException('IsOwnerValidator should only be used when a user is logged in.');
         }
+        assert($user instanceof User);
 
         if ($this->security->isGranted('ROLE_ADMIN')) {
             return;
         }
 
-        if ($value !== $user) {
+        if ($value->id !== $user->getId()) {
             $this->context->buildViolation($constraint->message)
                 ->addViolation();
         }
