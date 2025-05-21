@@ -20,7 +20,7 @@ use App\State\EntityClassDtoStateProcessor;
 class DragonTreasureApi
 {
 
-    #[ApiProperty(readable: false, writable:false, indentifier: true)]
+    #[ApiProperty(readable: false, writable:false, identifier: true)]
     public ?int $id = null;
 
     public ?string $name = null;
