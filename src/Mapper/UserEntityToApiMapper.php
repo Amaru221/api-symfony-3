@@ -41,7 +41,9 @@ class UserEntityToApiMapper implements MapperInterface{
         $dto->username = $entity->getUsername();
         //$dto->dragonTreasures = $entity->getPublishedDragonTreasures()->getValues();
         $dto->dragonTreasures = array_map(function(DragonTreasure $dragonTreasure){
-            return $this->microMapper->map($dragonTreasure, DragonTreasureApi::class);
+            return $this->microMapper->map($dragonTreasure, DragonTreasureApi::class, [
+                MicroMapperInterface::MAX_DEPTH => 1,
+            ]);
         }, $entity->getPublishedDragonTreasures()->getValues());
         $dto->flameThrowingDistance = rand(1, 10);
 
